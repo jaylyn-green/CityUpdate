@@ -25,6 +25,8 @@ const getCity = async (req, res) => {
     try{
 
         //implement logic later 
+        //findById? or find? or findOne?
+        //Should i grab all and display all current cities on front page then have a search bar or a way to filter through?
 
     }catch(error){
         res.status(500).json(error);
