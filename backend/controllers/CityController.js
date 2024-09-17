@@ -1,6 +1,8 @@
+//City and location could be conjoined into one so this could be changed in api/v2
+
 const { cityModel } = require('../models/CitySchema');
 
-const addCity = async (res, req) => {
+const addCity = async (req, res) => {
     try {
         const { name, type, location, status, impact } = req.body;
 
@@ -20,7 +22,14 @@ const addCity = async (res, req) => {
 }
 
 const getCity = async (req, res) => {
-    res.status(200).json({message: 'hello'})
+    try{
+
+        //implement logic later 
+
+    }catch(error){
+        res.status(500).json(error);
+        console.log(error);
+    }
 }
 
 module.exports = { addCity, getCity };
