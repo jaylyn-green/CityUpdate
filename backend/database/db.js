@@ -1,7 +1,8 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-dotenv.config();  // Explicitly load environment variables
+
+dotenv.config();  
 
 const uri = process.env.MONGO_URI;
 
@@ -15,4 +16,4 @@ const database = async () => {
     }
 }
 
-export { database };
+module.exports = { database };
