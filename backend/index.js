@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const { database } = require('./database/db.js');
 const { readdirSync } = require('fs');
-const CityRoute = require('./routes/CityRoute.js');
 
 const app = express();
 app.use(express.json());
