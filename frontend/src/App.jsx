@@ -1,6 +1,4 @@
 //figure out how to implement the google maps api
-//
-
 
 function App() {
 
@@ -11,4 +9,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
