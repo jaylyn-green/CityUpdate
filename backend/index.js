@@ -10,7 +10,7 @@ app.use(cors());
 
 require('dotenv').config();
 
-readdirSync('./routes').map((route) => app.use('/api/v1', require("./routes/" + route)));
+readdirSync('./routes').map((route) => app.use('/api/v2', require("./routes/" + route)));
 
 const port = process.env.PORT || 5050;
 

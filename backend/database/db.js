@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-
-dotenv.config();  
+dotenv.config();
 
 const uri = process.env.MONGO_URI;
 
