@@ -16,7 +16,7 @@ const MapComponent = ({ projects }) => {
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
       center={center}
-      zoom={6}
+      zoom={5}
     >
       {projects.map((project) => (
         <Marker
