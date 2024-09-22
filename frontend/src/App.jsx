@@ -7,8 +7,10 @@ import styled from 'styled-components';
 function App() {
   const [projects, setProjects] = useState([]);
 
+  
+
   useEffect(() => {
-    // Fetch projects from the backend API
+    // Fetch projects from api
     const fetchProjects = async () => {
       try {
         const response = await axios.get('http://localhost:5885/api/v2/get-cities');
@@ -22,12 +24,10 @@ function App() {
   }, []);
 
   return (
-    <>
       <AppStyled>
         <HeaderComponent />
         <MapComponent projects={projects} />  {/* Pass projects to MapComponent */}
       </AppStyled>
-    </>
   );
 }
 const AppStyled = styled.div`
