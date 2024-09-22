@@ -1,8 +1,12 @@
+//TODO: Make some style changes. get a new font and go from there
+//page or component to add a city from the frontend then same thing with deleting
+
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import styled from 'styled-components'
 
 const MapComponent = ({ projects }) => {
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
@@ -11,7 +15,9 @@ const MapComponent = ({ projects }) => {
 
   useEffect(() => {
     if (isLoaded && projects.length > 0) {
+
       setMarkers(projects.map(project => ({
+
         id: project._id,
         position: {
           lat: Number(project.latitude),
