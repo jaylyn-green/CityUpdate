@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import styled from 'styled-components'
 
 const MapComponent = ({ projects }) => {
   const { isLoaded } = useLoadScript({
@@ -34,10 +35,11 @@ const MapComponent = ({ projects }) => {
   if (!isLoaded) return <div>Loading map...</div>;
 
   return (
+    <MapContainer>
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
       center={center}
-      zoom={6}
+      zoom={5}
     >
       {markers.map(marker => (
         <Marker
@@ -47,7 +49,15 @@ const MapComponent = ({ projects }) => {
         />
       ))}
     </GoogleMap>
+    </MapContainer>
   );
 };
+
+const MapContainer = styled.div`
+margin-left: 16%;
+margin-right: 16%;
+padding-top: 40px;
+padding-bottom: 40px;
+`
 
 export default MapComponent;
