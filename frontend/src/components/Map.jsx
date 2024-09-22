@@ -1,50 +1,51 @@
-import React from 'react';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 
 const MapComponent = ({ projects }) => {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+  });
+
+  const [markers, setMarkers] = useState([]);
+
+  useEffect(() => {
+    if (isLoaded && projects.length > 0) {
+      setMarkers(projects.map(project => ({
+        id: project._id,
+        position: {
+          lat: Number(project.latitude),
+          lng: Number(project.longitude)
+        },
+        title: project.name,
+      })));
+    }
+  }, [isLoaded, projects]);
 
   const mapContainerStyle = {
-    height: '100vh',  //100% doesnt work here? Has to be vh or nothing else
-    width: '100%',    //Any value or measurement works here?
+    height: '100vh',
+    width: '100%'
   };
-  const MapContainer = styled.div`
-  margin-left: 16%;
-  margin-right: 16%;
-  padding-top: 40px;
-  padding-bottom: 40px;
-`
 
   const center = {
     lat: 39.8097343,
     lng: -98.5556199
   };
-  const {isLoaded} = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-  });
 
   if (!isLoaded) return <div>Loading map...</div>;
 
-
-
   return (
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        center={center}
-        zoom={7}
-      >
-        {projects.map((project) => (
-          < Marker
-              key = { project._id }
-              position = {{
-          lat: Number(project.latitude),  // Ensure latitude is a number
-          lng: Number(project.longitude)  // Ensure longitude is a number
-        }}
-        title={project.name}
-            >
-              {console.log(project)}
-      </Marker>
-          ))}
+    <GoogleMap
+      mapContainerStyle={mapContainerStyle}
+      center={center}
+      zoom={6}
+    >
+      {markers.map(marker => (
+        <Marker
+          key={marker.id}
+          position={marker.position}
+          title={marker.title}
+        />
+      ))}
     </GoogleMap>
   );
 };
