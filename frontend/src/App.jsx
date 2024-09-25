@@ -3,11 +3,13 @@ import axios from 'axios';
 import MapComponent from './components/Map';
 import HeaderComponent from './components/Header';
 import styled from 'styled-components';
+import { Container, Stack, Row, Col } from "react-bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css";
+import AddCity from './components/AddCity';
+import DeleteCity from './components/DeleteCity';
 
 function App() {
   const [projects, setProjects] = useState([]);
-
-  
 
   useEffect(() => {
     // Fetch projects from api
@@ -23,17 +25,22 @@ function App() {
     fetchProjects();
   }, []);
 
+
   return (
-      <AppStyled>
-        <HeaderComponent />
-        <MapComponent projects={projects} />  {/* Pass projects to MapComponent */}
-      </AppStyled>
+    <Container fluid>
+      <HeaderComponent />
+      <Row>
+        <Col md={3} className="d-flex flex-column align-items-start">
+          <AddCity />
+          <DeleteCity />
+        </Col>
+        <Col md={9}>
+          <MapComponent projects={projects} />
+        </Col>
+      </Row>
+    </Container>
   );
 }
-const AppStyled = styled.div`
-  margin: 0;
-  padding: 0;
-  background-color: #2c2c2c;
-`;
+
 
 export default App;

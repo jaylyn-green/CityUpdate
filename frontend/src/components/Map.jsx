@@ -1,4 +1,6 @@
-//TODO: Make some style changes. get a new font and go from there
+//TODO: Make some style changes. get a new font and go from there. change marker styles maybe?
+//move the map further to the side while adding the other components to the left in a stack formation
+//could also make the map a little smaller
 //page or component to add a city from the frontend then same thing with deleting
 
 import React, { useEffect, useState } from 'react';
@@ -29,7 +31,7 @@ const MapComponent = ({ projects }) => {
   }, [isLoaded, projects]);
 
   const mapContainerStyle = {
-    height: '100vh',
+    height: '78vh',
     width: '100%'
   };
 
@@ -64,6 +66,6 @@ margin-left: 16%;
 margin-right: 16%;
 padding-top: 40px;
 padding-bottom: 40px;
-`
+`;
 
 export default MapComponent;
