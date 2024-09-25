@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import MapComponent from './components/Map';
+import MapComponent from '../pages/Map';
 import HeaderComponent from './components/Header';
-import styled from 'styled-components';
-import { Container, Stack, Row, Col } from "react-bootstrap"
+import { Container, Row, Col } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css";
-import AddCity from './components/AddCity';
-import DeleteCity from './components/DeleteCity';
+import AddCity from '../pages/AddCity';
+import DeleteCity from '../pages/DeleteCity';
+import { getReq, baseURL } from '../utils/service';
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -15,8 +14,8 @@ function App() {
     // Fetch projects from api
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('http://localhost:5885/api/v2/get-cities');
-        setProjects(response.data);
+        const response = await getReq(`${baseURL}/get-cities`);
+        setProjects(response);
       } catch (error) {
         console.error('Error fetching projects:', error);
       }

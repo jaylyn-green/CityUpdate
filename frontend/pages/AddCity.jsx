@@ -10,7 +10,7 @@ const AddCity = () => {
         </AddCityStyled>
     );
 }
-const AddCityStyled = styled.button`
+const AddCityStyled = styled.div`
     padding-left: 15px;
  `;
 export default AddCity;

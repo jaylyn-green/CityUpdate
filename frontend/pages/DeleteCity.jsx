@@ -10,7 +10,7 @@ const DeleteCity = () => {
         </DeleteCityStyled>
      );
 }
-const DeleteCityStyled = styled.button`
+const DeleteCityStyled = styled.div`
     padding-left: 15px;
 `;
  
