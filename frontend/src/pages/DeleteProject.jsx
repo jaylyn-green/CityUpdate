@@ -5,13 +5,12 @@ import styled from "styled-components";
 
 const DeleteCity = () => {
     return ( 
-        <DeleteCityStyled>
-            DeleteCity
-        </DeleteCityStyled>
+        <DeleteConStyled>
+            Delete Construction
+        </DeleteConStyled>
      );
 }
-const DeleteCityStyled = styled.div`
-    padding-left: 15px;
+const DeleteConStyled = styled.div`
 `;
  
 export default DeleteCity;

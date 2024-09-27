@@ -32,7 +32,6 @@ export const postReq = async (url, body) => {
 export const getReq = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
 
     if (!response.ok) {
         let message = "An error has ooccured!"

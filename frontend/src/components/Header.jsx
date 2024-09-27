@@ -1,20 +1,14 @@
-//Style header
-
-import styled from "styled-components";
+import { Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const HeaderComponent = () => {
     return (
-        <HeaderStyled>
-            <h1>City Update</h1>
-        </HeaderStyled>
+        <Navbar bg="dark" className="mb-4">
+                <h2 className="ms-auto pe-5">
+                    <Link to='/addCity' className="link-light text-decoration-none">Add construction</Link>
+                </h2>
+        </Navbar>
     );
 }
-const HeaderStyled = styled.header`
-    background-color: #959595;
-    height: 3.75em;
-    display: flex;
-    padding-top: 15px;
-    padding-left: 15px; 
-    
-`
+
 export default HeaderComponent;
