@@ -1,19 +1,15 @@
-//page to add a city to the projects
 import styled from "styled-components";
-import { Button, Col, Form, Stack, Row } from 'react-bootstrap';
+import { Button, Col, Form, Stack, Row, Alert } from 'react-bootstrap';
 import { useContext } from "react";
 import { ProjectContext } from '../context/ProjectContext';
 
-
 const RegisterProject = () => {
-
     const {
         addProject,
         updateRegisterInfo,
         projectInfo,
         isRegisterLoading,
-        projectError,
-
+        projectInfoError
     } = useContext(ProjectContext);
 
     return (
@@ -24,34 +20,51 @@ const RegisterProject = () => {
                     justifyContent: "center",
                     paddingTop: "10%"
                 }}>
-                    <Col xa={6}>
+                    <Col xs={12}>
                         <Stack gap={3}>
                             <h2>Register Project</h2>
-                            <Form.Control type="text" placeholder="Type of project?"
+                            <Form.Control
+                                type="text"
+                                placeholder="Type of project?"
+                                value={projectInfo.type}
                                 onChange={(e) => updateRegisterInfo(
                                     { ...projectInfo, type: e.target.value }
-                                )} />
-                            <Form.Control type="text" placeholder="Location?"
+                                )}
+                            />
+                            <Form.Control
+                                type="text"
+                                placeholder="Location?"
+                                value={projectInfo.location}
                                 onChange={(e) => updateRegisterInfo(
                                     { ...projectInfo, location: e.target.value }
-                                )} />
-                            <Form.Control type="text" placeholder="What's the status?"
+                                )}
+                            />
+                            <Form.Control
+                                type="text"
+                                placeholder="What's the status?"
+                                value={projectInfo.status}
                                 onChange={(e) => updateRegisterInfo(
                                     { ...projectInfo, status: e.target.value }
-                                )} />
-                            <Form.Control type="text" placeholder="What's the impact?"
+                                )}
+                            />
+                            <Form.Control
+                                type="text"
+                                placeholder="What's the impact?"
+                                value={projectInfo.impact}
                                 onChange={(e) => updateRegisterInfo(
                                     { ...projectInfo, impact: e.target.value }
-                                )} />
+                                )}
+                            />
 
                             <Button variant="primary" type="submit">
-                                {isRegisterLoading ? "Adding the projecy" : "Register project"}
+                                {isRegisterLoading ? "Adding the project..." : "Register project"}
                             </Button>
-                            {
-                                projectError?.error && (<Alert variant="danger">
-                                    <p>{projectError?.message}</p>
-                                </Alert>)
-                            }
+
+                            {projectInfoError?.error && (
+                                <Alert variant="danger">
+                                    <p>{projectInfoError?.message}</p>
+                                </Alert>
+                            )}
 
                         </Stack>
                     </Col>
@@ -59,8 +72,10 @@ const RegisterProject = () => {
             </Form>
         </AddProjectStyled>
     );
-}
+};
+
 const AddProjectStyled = styled.div`
-    
- `;
+  margin-left: 40px;
+`;
+
 export default RegisterProject;

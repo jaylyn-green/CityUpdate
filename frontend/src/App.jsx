@@ -11,19 +11,8 @@ import "./styles/App.css";
 import { ProjectContextProvider } from './context/ProjectContext';
 
 function App() {
-  const [projects, setProjects] = useState([]);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await getReq(`${baseURL}/get-cities`);
-        setProjects(response);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      }
-    };
-    fetchProjects();
-  }, []);
+
 
   return (
     <Container fluid>
@@ -36,7 +25,7 @@ function App() {
           </ProjectContextProvider>
         </Col>
         <Col md={9}>
-          <MapComponent projects={projects} />
+          <MapComponent />
         </Col>
       </Row>
     </Container>
