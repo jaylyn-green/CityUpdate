@@ -50,7 +50,7 @@ const MapComponent = () => {
     lng: -98.5556199
   };
 
-  if (!isLoaded) return <div>Loading map...</div>;
+  if (!isLoaded) return <div className='d-flex justify-content-center'>Loading map...</div>;
 
   return (
     <MapContainer>
