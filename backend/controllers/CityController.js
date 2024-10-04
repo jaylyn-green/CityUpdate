@@ -17,7 +17,7 @@ const addCity = async (req, res) => {
             }
         });
 
-        //convert "location" to longitude and latitude
+        //convert location to longitude and latitude
         if (geoResponse.data.status === 'OK') {
             const { lat, lng } = geoResponse.data.results[0].geometry.location;
             console.log(geoResponse.data);
@@ -57,7 +57,7 @@ const getCities = async (req, res) => {
     }
 };
 
-const getCity = async (req, res) => {
+const getCity = async (req, res) => {       //function may not be needed
     try {
 
         const cityId = req.params.cityId;
