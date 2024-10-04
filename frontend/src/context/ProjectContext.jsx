@@ -7,7 +7,7 @@ export const ProjectContextProvider = ({ children }) => {
     const [projectInfoError, setProjectInfoError] = useState(null);
     const [isRegisterLoading, setIsRegisterLoading] = useState(false);
 
-    // Initial state for the form
+    // needed to reset the form after submission
     const initialProjectInfo = {
         type: "",
         location: "",
@@ -18,7 +18,6 @@ export const ProjectContextProvider = ({ children }) => {
     const [projectInfo, setProjectInfo] = useState(initialProjectInfo);
     const [project, setProject] = useState(null);
 
-    // Function to reset the form fields
     const resetProjectInfo = useCallback(() => {
         setProjectInfo(initialProjectInfo);
     }, []);
@@ -35,7 +34,7 @@ export const ProjectContextProvider = ({ children }) => {
         }
 
         setProject(response);
-        resetProjectInfo();  // Reset form after successful submission
+        resetProjectInfo(); 
 
     }, [projectInfo, resetProjectInfo]);
 
@@ -44,7 +43,7 @@ export const ProjectContextProvider = ({ children }) => {
     }, []);
 
     const DeleteProject = useCallback(async (e) => {
-        // Implement delete functionality if needed
+        // Nothing yet
     }, []);
 
     return (
@@ -58,7 +57,7 @@ export const ProjectContextProvider = ({ children }) => {
                 updateRegisterInfo,
                 isRegisterLoading,
                 projectInfoError,
-                resetProjectInfo,  // Expose reset function to the context
+                resetProjectInfo, 
             }}
         >
             {children}

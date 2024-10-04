@@ -57,7 +57,7 @@ const getCities = async (req, res) => {
     }
 };
 
-const getCity = async (req, res) => {       //function may not be needed
+const getCity = async (req, res) => {       //function isn't needed
     try {
 
         const cityId = req.params.cityId;
