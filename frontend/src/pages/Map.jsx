@@ -19,7 +19,6 @@ const MapComponent = () => {
   });
 
   useEffect(() => {
-    // Fetch the projects
     const loadProjects = async () => {
       try {
         const projectsData = await fetchProjects();
@@ -41,19 +40,22 @@ const MapComponent = () => {
             lat: Number(project.latitude),
             lng: Number(project.longitude),
           },
-          title: project.name,
+          type: project.type,
+          status: project.status,
         }))
       );
     }
   }, [isLoaded, projects]);
 
   const mapContainerStyle = {
-    height: "78vh",
-    width: "100%",
+    height: "77vh",
+    width: "90%",           
+    borderRadius: "19px"
   };
+  
 
   const center = {
-    lat: 39.8097343, 
+    lat: 39.8097343,
     lng: -98.5556199,
   };
 
@@ -73,7 +75,7 @@ const MapComponent = () => {
     setMarkers((prevMarkers) =>
       prevMarkers.filter((marker) => marker.id !== markerId)
     );
-    setSelectedMarker(null); // Close the InfoWindow after deleting
+    setSelectedMarker(null);
   };
 
   if (!isLoaded)
@@ -86,7 +88,7 @@ const MapComponent = () => {
           <Marker
             key={marker.id}
             position={marker.position}
-            title={marker.title}
+            type={marker.type}
             onClick={() => handleMarkerClick(marker)}
           />
         ))}
@@ -97,9 +99,19 @@ const MapComponent = () => {
             onCloseClick={() => setSelectedMarker(null)}
           >
             <div>
-              <h6>{selectedMarker.title}</h6>
+              <h5>
+                {selectedMarker.type.charAt(0).toUpperCase() +
+                  selectedMarker.type.slice(1)}
+              </h5>
+              <h6>
+                {selectedMarker.status.charAt(0).toUpperCase() +
+                  selectedMarker.status.slice(1)}
+              </h6>
               <p>{address}</p>
-              <button className="border border-danger bg-danger text-white rounded" onClick={() => handleDeleteMarker(selectedMarker.id)}>
+              <button
+                className="border border-danger bg-danger text-white rounded"
+                onClick={() => handleDeleteMarker(selectedMarker.id)}
+              >
                 Delete
               </button>
             </div>
@@ -111,10 +123,15 @@ const MapComponent = () => {
 };
 
 const MapContainer = styled.div`
-  margin-left: 16%;
-  margin-right: 16%;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  width: 90%;
+  padding:40px;
+  background: #f2fcff;
+  border: 3px solid #ffffff;
+  border-radius: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
+
 
 export default MapComponent;

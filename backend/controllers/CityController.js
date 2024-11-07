@@ -57,7 +57,7 @@ const getCities = async (req, res) => {
     }
 };
 
-const getCity = async (req, res) => {       //function isn't needed
+const getCity = async (req, res) => {       //Really don't need a route and function for idividual cities or projects
     try {
 
         const cityId = req.params.cityId;
