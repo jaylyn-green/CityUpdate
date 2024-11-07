@@ -71,4 +71,16 @@ const getCity = async (req, res) => {       //function isn't needed
     }
 }
 
-module.exports = { addCity, getCities, getCity };
+const deleteProject = async (req, res) => {
+    const cityId = req.params.cityId;
+    try {
+        cityModel.findByIdAndDelete(cityId)
+        res.status(200).json({ message: "Project deleted!" });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
+}
+
+module.exports = { addCity, getCities, getCity, deleteProject };

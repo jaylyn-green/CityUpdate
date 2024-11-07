@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import styled from 'styled-components';
-import { fetchProjects } from '../../utils/fetchProjects';
+import React, { useEffect, useState } from "react";
+import {
+  GoogleMap,
+  Marker,
+  InfoWindow,
+  useLoadScript,
+} from "@react-google-maps/api";
+import styled from "styled-components";
+import { fetchProjects } from "../../utils/fetchProjects";
 
 const MapComponent = () => {
   const [projects, setProjects] = useState([]);
   const [markers, setMarkers] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
+  const [address, setAddress] = useState("");
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -18,7 +25,7 @@ const MapComponent = () => {
         const projectsData = await fetchProjects();
         setProjects(projectsData);
       } catch (error) {
-        console.error('Error loading projects:', error);
+        console.error("Error loading projects:", error);
       }
     };
 
@@ -28,11 +35,11 @@ const MapComponent = () => {
   useEffect(() => {
     if (isLoaded && projects.length > 0) {
       setMarkers(
-        projects.map(project => ({
+        projects.map((project) => ({
           id: project._id,
           position: {
             lat: Number(project.latitude),
-            lng: Number(project.longitude)
+            lng: Number(project.longitude),
           },
           title: project.name,
         }))
@@ -41,31 +48,63 @@ const MapComponent = () => {
   }, [isLoaded, projects]);
 
   const mapContainerStyle = {
-    height: '78vh',
-    width: '100%'
+    height: "78vh",
+    width: "100%",
   };
 
   const center = {
-    lat: 39.8097343, // Default center
-    lng: -98.5556199
+    lat: 39.8097343, 
+    lng: -98.5556199,
   };
 
-  if (!isLoaded) return <div className='d-flex justify-content-center'>Loading map...</div>;
+  const handleMarkerClick = (marker) => {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ location: marker.position }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        setAddress(results[0].formatted_address);
+      } else {
+        setAddress("Address not found");
+      }
+      setSelectedMarker(marker);
+    });
+  };
+
+  const handleDeleteMarker = (markerId) => {
+    setMarkers((prevMarkers) =>
+      prevMarkers.filter((marker) => marker.id !== markerId)
+    );
+    setSelectedMarker(null); // Close the InfoWindow after deleting
+  };
+
+  if (!isLoaded)
+    return <div className="d-flex justify-content-center">Loading map...</div>;
 
   return (
     <MapContainer>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        center={center}
-        zoom={5}
-      >
-        {markers.map(marker => (
+      <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={5}>
+        {markers.map((marker) => (
           <Marker
             key={marker.id}
             position={marker.position}
             title={marker.title}
+            onClick={() => handleMarkerClick(marker)}
           />
         ))}
+
+        {selectedMarker && (
+          <InfoWindow
+            position={selectedMarker.position}
+            onCloseClick={() => setSelectedMarker(null)}
+          >
+            <div>
+              <h6>{selectedMarker.title}</h6>
+              <p>{address}</p>
+              <button className="border border-danger bg-danger text-white rounded" onClick={() => handleDeleteMarker(selectedMarker.id)}>
+                Delete
+              </button>
+            </div>
+          </InfoWindow>
+        )}
       </GoogleMap>
     </MapContainer>
   );
