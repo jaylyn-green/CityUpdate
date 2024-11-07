@@ -42,6 +42,7 @@ const MapComponent = () => {
           },
           type: project.type,
           status: project.status,
+          impact: project.impact,
         }))
       );
     }
@@ -49,10 +50,9 @@ const MapComponent = () => {
 
   const mapContainerStyle = {
     height: "77vh",
-    width: "90%",           
-    borderRadius: "19px"
+    width: "90%",
+    borderRadius: "19px",
   };
-  
 
   const center = {
     lat: 39.8097343,
@@ -107,6 +107,11 @@ const MapComponent = () => {
                 {selectedMarker.status.charAt(0).toUpperCase() +
                   selectedMarker.status.slice(1)}
               </h6>
+              <p>
+                Impact:{" "}
+                {selectedMarker.impact.charAt(0).toUpperCase() +
+                  selectedMarker.impact.slice(1)}
+              </p>
               <p>{address}</p>
               <button
                 className="border border-danger bg-danger text-white rounded"
@@ -124,7 +129,7 @@ const MapComponent = () => {
 
 const MapContainer = styled.div`
   width: 90%;
-  padding:40px;
+  padding: 40px;
   background: #f2fcff;
   border: 3px solid #ffffff;
   border-radius: 32px;
@@ -132,6 +137,5 @@ const MapContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 
 export default MapComponent;
