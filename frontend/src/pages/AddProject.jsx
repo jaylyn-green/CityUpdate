@@ -79,11 +79,10 @@ const AddProjectStyled = styled.div`
   margin-left: 2rem;
   width: 374px;
   height: 100%;
-  background: #f2fcff;
-  border: 3px solid #ffffff;
   border-radius: 32px;
   display: flex;
   flex-direction: column;
+  color: white;
 `;
 
 export default RegisterProject;

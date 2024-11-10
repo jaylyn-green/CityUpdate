@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   GoogleMap,
   Marker,
@@ -6,14 +6,15 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 import styled from "styled-components";
-import { fetchProjects } from "../../utils/fetchProjects";
+import { ProjectContext } from "../context/ProjectContext";
 
 const MapComponent = () => {
-  const [projects, setProjects] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [address, setAddress] = useState("");
 
+  const { getProjects, deleteProject, projects } = useContext(ProjectContext);
+  
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
@@ -21,8 +22,7 @@ const MapComponent = () => {
   useEffect(() => {
     const loadProjects = async () => {
       try {
-        const projectsData = await fetchProjects();
-        setProjects(projectsData);
+        await getProjects();
       } catch (error) {
         console.error("Error loading projects:", error);
       }
@@ -32,7 +32,7 @@ const MapComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoaded && projects.length > 0) {
+    if (isLoaded && projects?.length > 0) {
       setMarkers(
         projects.map((project) => ({
           id: project._id,
@@ -72,9 +72,7 @@ const MapComponent = () => {
   };
 
   const handleDeleteMarker = (markerId) => {
-    setMarkers((prevMarkers) =>
-      prevMarkers.filter((marker) => marker.id !== markerId)
-    );
+    deleteProject(markerId);
     setSelectedMarker(null);
   };
 
@@ -130,8 +128,6 @@ const MapComponent = () => {
 const MapContainer = styled.div`
   width: 90%;
   padding: 40px;
-  background: #f2fcff;
-  border: 3px solid #ffffff;
   border-radius: 32px;
   display: flex;
   justify-content: center;

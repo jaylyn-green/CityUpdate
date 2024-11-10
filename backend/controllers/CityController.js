@@ -31,7 +31,7 @@ const addCity = async (req, res) => {
                 longitude: lng
             });
 
-            await city.save(); // Save to DB
+            await city.save(); 
             res.status(200).json(city);
 
         } else {
@@ -57,30 +57,22 @@ const getCities = async (req, res) => {
     }
 };
 
-const getCity = async (req, res) => {       //Really don't need a route and function for idividual cities or projects
-    try {
 
-        const cityId = req.params.cityId;
-        const city = await cityModel.findById(cityId);
-
-        res.status(200).json(city);
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).json(error);
-    }
-}
 
 const deleteProject = async (req, res) => {
-    const cityId = req.params.cityId;
+    const { id } = req.params;
     try {
-        cityModel.findByIdAndDelete(cityId)
-        res.status(200).json({ message: "Project deleted!" });
+        const project = await cityModel.findByIdAndDelete(id);
 
+        if (!project) {
+            return res.status(404).json({ message: "Project not found!" });
+        }
+
+        return res.status(200).json({ message: "Project deleted!" });
     } catch (error) {
-        console.log(error);
-        res.status(500).json(error);
+        console.error("Error deleting project:", error);
+        return res.status(500).json({ message: "Server error!" });
     }
-}
+};
 
-module.exports = { addCity, getCities, getCity, deleteProject };
+module.exports = { addCity, getCities, deleteProject };

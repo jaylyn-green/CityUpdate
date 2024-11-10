@@ -2,9 +2,9 @@ import { Navbar } from "react-bootstrap";
 
 const HeaderComponent = () => {
     return (
-        <Navbar bg="dark" className="mb-4">
+        <Navbar className="mb-4 rounded-bottom-3" style={{backgroundColor: "#5e5e5e"}}>
             <h2 className="ms-auto pe-5">
-                <div className="link-light text-decoration-none">City Update</div>
+                <div className="text-light">City Update</div>
             </h2>
         </Navbar>
     );

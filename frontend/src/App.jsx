@@ -9,7 +9,10 @@ import { ProjectContextProvider } from "./context/ProjectContext";
 
 function App() {
   return (
-    <Container fluid style={{ padding: 0, overflow: "hidden" }}>
+    <Container
+      fluid
+      className="bg-black bg-gradient m-0 p-0 overflow-hidden vh-100 "
+    >
       <HeaderComponent />
       <Row>
         <Col md={3} className="d-flex flex-column align-items-start">

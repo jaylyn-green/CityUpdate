@@ -34,7 +34,7 @@ export const getReq = async (url) => {
     const data = await response.json();
 
     if (!response.ok) {
-        let message = "An error has ooccured!"
+        let message = "An error has occured!"
 
         if (data?.message) {
             message = data.message;
@@ -43,4 +43,13 @@ export const getReq = async (url) => {
         return { error: true, message }
     }
     return data;
+}
+
+export const deleteReq = async (url) =>{
+    const response = await fetch(url);
+    if(!response.ok){
+        let message = "An error has occured!"
+        return{error: true, message}
+    }
+
 }
