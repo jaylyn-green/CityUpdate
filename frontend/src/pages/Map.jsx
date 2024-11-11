@@ -14,7 +14,12 @@ const MapComponent = () => {
   const [address, setAddress] = useState("");
 
   const { getProjects, deleteProject, projects } = useContext(ProjectContext);
-  
+
+  const [center] = useState({
+    lat: 39.8097343,
+    lng: -98.5556199,
+  });
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
@@ -29,7 +34,7 @@ const MapComponent = () => {
     };
 
     loadProjects();
-  }, []);
+  }, [markers]);
 
   useEffect(() => {
     if (isLoaded && projects?.length > 0) {
@@ -52,11 +57,6 @@ const MapComponent = () => {
     height: "77vh",
     width: "90%",
     borderRadius: "19px",
-  };
-
-  const center = {
-    lat: 39.8097343,
-    lng: -98.5556199,
   };
 
   const handleMarkerClick = (marker) => {
